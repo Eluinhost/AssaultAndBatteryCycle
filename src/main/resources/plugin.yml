@@ -1,0 +1,8 @@
+name: ${project.name}
+main: ${project.groupId}.${project.artifactId}.Entry
+version: ${project.version}
+author: D4mnX
+commands:
+  aabc:
+    aliases: [assaultandbatterycycle]
+    permission: assaultandbatterycycle.command
