@@ -10,16 +10,19 @@ import org.bukkit.event.entity.EntityDamageEvent;
 public class FilterDamageListener implements Listener {
 
     protected final CycleManager manager;
-    protected final Predicate<EntityDamageByEntityEvent> pvpDamagePredicate;
+    protected final Predicate<EntityDamageByEntityEvent> pvpDamageEventPredicate;
 
-    public FilterDamageListener(CycleManager manager, Predicate<EntityDamageByEntityEvent> pvpDamagePredicate) {
+    public FilterDamageListener(
+            CycleManager manager,
+            Predicate<EntityDamageByEntityEvent> pvpDamageEventPredicate
+    ) {
         this.manager = manager;
-        this.pvpDamagePredicate = pvpDamagePredicate;
+        this.pvpDamageEventPredicate = pvpDamageEventPredicate;
     }
 
     @EventHandler
     protected void on(EntityDamageByEntityEvent event) {
-        if (!pvpDamagePredicate.apply(event)) {
+        if (!pvpDamageEventPredicate.apply(event)) {
             return;
         }
 

@@ -2,10 +2,9 @@ package de.web.paulschwandes.assaultandbatterycycle;
 
 import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Server;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitScheduler;
 import org.bukkit.scheduler.BukkitTask;
 
 public class CycleManager {
@@ -13,16 +12,12 @@ public class CycleManager {
     protected static final String BROADCAST_SWITCH_FORMAT = ChatColor.RED + "Cycle has switched to %s!";
 
     protected final Plugin plugin;
-    protected final BukkitScheduler scheduler;
-    protected final Server server;
     protected Cycle cycle = Cycle.MELEE;
     protected long cycleSwitchDelay;
     protected Optional<BukkitTask> switchTask = Optional.absent();
 
-    public CycleManager(Plugin plugin, BukkitScheduler scheduler, Server server, long cycleSwitchDelay) {
+    public CycleManager(Plugin plugin, long cycleSwitchDelay) {
         this.plugin = plugin;
-        this.scheduler = scheduler;
-        this.server = server;
         this.cycleSwitchDelay = cycleSwitchDelay;
     }
 
@@ -45,7 +40,7 @@ public class CycleManager {
 
     public void startSwitchTask() {
         Preconditions.checkState(!switchTask.isPresent());
-        BukkitTask task = scheduler.runTaskTimer(plugin, new SwitchTask(), cycleSwitchDelay, cycleSwitchDelay);
+        BukkitTask task = Bukkit.getScheduler().runTaskTimer(plugin, new SwitchTask(), cycleSwitchDelay, cycleSwitchDelay);
         switchTask = Optional.of(task);
     }
 
@@ -61,7 +56,7 @@ public class CycleManager {
         public void run() {
             cycle = cycle.next();
             String message = String.format(BROADCAST_SWITCH_FORMAT, cycle.name());
-            server.broadcastMessage(message);
+            Bukkit.broadcastMessage(message);
         }
     }
 }

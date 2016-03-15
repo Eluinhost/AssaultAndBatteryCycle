@@ -7,14 +7,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
-public class PvPDamagePredicateTest {
+public class PvPDamageEventPredicateTest {
 
-    protected final PvPDamagePredicate predicate = new PvPDamagePredicate();
+    protected final PvPDamageEventPredicate predicate = new PvPDamageEventPredicate();
 
     protected void testEvent(Entity victim, Entity attacker, boolean expectedResult) {
         EntityDamageByEntityEvent event = mock(EntityDamageByEntityEvent.class);

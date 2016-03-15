@@ -15,7 +15,7 @@ import org.bukkit.command.CommandSender;
 public class ChangeDelayCommand extends OptionCommand {
 
     protected static final String CHANGED_DELAY_FORMAT =
-            ChatColor.AQUA + "Cycle delay changed to %s seconds (by %s)";
+            ChatColor.AQUA + "Cycle delay changed to %s seconds";
 
     protected final Server server;
     protected final CycleManager manager;
@@ -47,7 +47,7 @@ public class ChangeDelayCommand extends OptionCommand {
         }
 
         boolean silent = optionSet.has(silentSpec);
-        String message = String.format(CHANGED_DELAY_FORMAT, seconds, sender.getName());
+        String message = String.format(CHANGED_DELAY_FORMAT, seconds);
         if (silent) {
             sender.sendMessage(message);
         } else {

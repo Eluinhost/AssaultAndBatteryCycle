@@ -5,9 +5,11 @@ made by [/u/Sean081799](https://www.reddit.com/user/Sean081799).
 
 When PvP is enabled, the game switches between 3 cycles every 2 minutes:
 
-- **Melee:** During the Melee cycle, direct player damage can only be dealt via melee attacks.
-- **Ranged:** During the Ranged cycle, direct player damage can only be dealt via ranged attacks.
-- **iPvP:** During the iPvP cycle, players cannot damage each other directly at all.
+- **Melee:** During the Melee cycle, player damage can only be dealt via melee attacks.
+- **Ranged:** During the Ranged cycle, player damage can only be dealt via ranged attacks.
+- **iPvP:** During the iPvP cycle, players cannot damage each other directly.
+
+Indirect PvP is disabled within range of other players during the Melee/Ranged cycles.
 
 ### Usage
 
@@ -20,6 +22,6 @@ Click [here](https://github.com/Eluinhost/UHC/blob/master/docs/commands/Commands
 
 ---
 
-This plugin is also available as a [compact script](http://pastebin.com/raw/CtrpgeLN) for the
+This plugin is also available as a [compact script](http://pastebin.com/raw/7jLhn8Vb) for the
 [Skript](http://dev.bukkit.org/bukkit-plugins/skript/) plugin.
 However, **the script version is not supported** and will likely not receive any bugfixes.

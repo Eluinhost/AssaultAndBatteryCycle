@@ -7,7 +7,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.projectiles.ProjectileSource;
 
-public class PvPDamagePredicate implements Predicate<EntityDamageByEntityEvent> {
+public class PvPDamageEventPredicate implements Predicate<EntityDamageByEntityEvent> {
 
     @Override
     public boolean apply(EntityDamageByEntityEvent event) {

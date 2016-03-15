@@ -16,7 +16,7 @@ public class ToggleScenarioCommand extends OptionCommand {
     protected static final String SAME_STATUS_FORMAT =
             ChatColor.RED + "Scenario is already %s!";
     protected static final String STATUS_CHANGED_FORMAT =
-            ChatColor.AQUA + "Assault and Battery Cycle is now %s! (by %s)";
+            ChatColor.AQUA + "Assault and Battery Cycle is now %s!";
 
     protected final AssaultAndBatteryCycleScenario scenario;
     protected final Server server;
@@ -53,7 +53,7 @@ public class ToggleScenarioCommand extends OptionCommand {
 
         boolean silent = optionSet.has(silentSpec);
         scenario.setEnabled(newStatus);
-        String message = String.format(STATUS_CHANGED_FORMAT, newStatusString, sender.getName());
+        String message = String.format(STATUS_CHANGED_FORMAT, newStatusString);
         if (silent) {
             sender.sendMessage(message);
         } else {
