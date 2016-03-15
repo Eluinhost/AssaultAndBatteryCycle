@@ -1,4 +1,4 @@
-# SkyHigh
+# Assault And Battery Cycle
 A Minecraft Bukkit plugin for the [Reddit UHC](https://www.reddit.com/r/ultrahardcore/) scenario
 [Assault and Battery Cycle](https://redd.it/4aicpc)
 made by [/u/Sean081799](https://www.reddit.com/user/Sean081799).
