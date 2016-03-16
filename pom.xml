@@ -28,11 +28,11 @@
             <version>1.9-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-        <!-- https://github.com/Eluinhost/UHC -->
+        <!-- https://github.com/Eluinhost/FlagCommand -->
         <dependency>
             <groupId>gg.uhc</groupId>
-            <artifactId>UHC</artifactId>
-            <version>1.1.0</version>
+            <artifactId>flagcommands</artifactId>
+            <version>1.2.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -86,12 +86,8 @@
                     <minimizeJar>true</minimizeJar>
                     <relocations>
                         <relocation>
-                            <pattern>gg.uhc.uhc.flagcommands</pattern>
+                            <pattern>gg.uhc.flagcommands</pattern>
                             <shadedPattern>${shadedPackage}.flagcommands</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>gg.uhc.uhc</pattern>
-                            <shadedPattern>${shadedPackage}.uhc</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

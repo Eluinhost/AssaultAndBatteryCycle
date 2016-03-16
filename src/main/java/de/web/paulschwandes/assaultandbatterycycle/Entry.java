@@ -28,7 +28,7 @@ import de.web.paulschwandes.assaultandbatterycycle.commands.ChangeDelayCommand;
 import de.web.paulschwandes.assaultandbatterycycle.commands.ToggleScenarioCommand;
 import de.web.paulschwandes.assaultandbatterycycle.listeners.FilterDamageListener;
 import de.web.paulschwandes.assaultandbatterycycle.listeners.NoIPvPListener;
-import gg.uhc.uhc.flagcommands.commands.SubcommandCommand;
+import gg.uhc.flagcommands.commands.SubcommandCommand;
 import org.bukkit.Server;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;

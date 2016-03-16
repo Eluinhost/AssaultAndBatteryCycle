@@ -25,9 +25,9 @@ package de.web.paulschwandes.assaultandbatterycycle.commands;
 
 import com.google.common.collect.ImmutableList;
 import de.web.paulschwandes.assaultandbatterycycle.AssaultAndBatteryCycleScenario;
-import gg.uhc.uhc.flagcommands.commands.OptionCommand;
-import gg.uhc.uhc.flagcommands.joptsimple.OptionSet;
-import gg.uhc.uhc.flagcommands.joptsimple.OptionSpec;
+import gg.uhc.flagcommands.commands.OptionCommand;
+import gg.uhc.flagcommands.joptsimple.OptionSet;
+import gg.uhc.flagcommands.joptsimple.OptionSpec;
 import org.bukkit.ChatColor;
 import org.bukkit.Server;
 import org.bukkit.command.CommandSender;
