@@ -22,6 +22,6 @@ Click [here](https://github.com/Eluinhost/UHC/blob/master/docs/commands/Commands
 
 ---
 
-This plugin is also available as a [compact script](http://pastebin.com/raw/7jLhn8Vb) for the
+This plugin is also available as a [compact script](http://pastebin.com/raw/Wf7b2b66) for the
 [Skript](http://dev.bukkit.org/bukkit-plugins/skript/) plugin.
 However, **the script version is not supported** and will likely not receive any bugfixes.
