@@ -34,8 +34,6 @@ import org.bukkit.command.CommandSender;
 
 public class ToggleScenarioCommand extends OptionCommand {
 
-    protected static final String SPECIFY_STATUS_MESSAGE =
-            ChatColor.RED + "Specify either -e/-enable or -d/-disable";
     protected static final String SAME_STATUS_FORMAT =
             ChatColor.RED + "Scenario is already %s!";
     protected static final String STATUS_CHANGED_FORMAT =
@@ -43,40 +41,34 @@ public class ToggleScenarioCommand extends OptionCommand {
 
     protected final AssaultAndBatteryCycleScenario scenario;
     protected final Server server;
-    protected final OptionSpec<Void> enableSpec;
-    protected final OptionSpec<Void> disableSpec;
+    protected final boolean toState;
+    protected final String toStateString;
+
     protected final OptionSpec<Void> silentSpec;
 
-    public ToggleScenarioCommand(AssaultAndBatteryCycleScenario scenario, Server server) {
+    public ToggleScenarioCommand(AssaultAndBatteryCycleScenario scenario, Server server, boolean toState) {
         this.scenario = scenario;
         this.server = server;
-        enableSpec = parser.acceptsAll(ImmutableList.of("e", "enable", "on"), "Enable the scenario");
-        disableSpec = parser.acceptsAll(ImmutableList.of("d", "disable", "off"), "Disable the scenario");
+
+        this.toState = toState;
+        this.toStateString = toState ? "enabled" : "disabled";
+
         silentSpec = parser.acceptsAll(ImmutableList.of("s", "silent"), "Perform toggle silently");
     }
 
     @Override
     protected boolean runCommand(CommandSender sender, OptionSet optionSet) {
-        boolean hasEnableSpec = optionSet.has(enableSpec);
-        boolean hasDisableSpec = optionSet.has(disableSpec);
-        if (hasDisableSpec == hasEnableSpec) {
-            sender.sendMessage(SPECIFY_STATUS_MESSAGE);
-            return true;
-        }
-
-        // For clarity
-        // noinspection UnnecessaryLocalVariable
-        boolean newStatus = hasEnableSpec;
-        String newStatusString = newStatus ? "enabled" : "disabled";
-        if (scenario.isEnabled() == newStatus) {
-            String message = String.format(SAME_STATUS_FORMAT, newStatusString);
+        if (scenario.isEnabled() == toState) {
+            String message = String.format(SAME_STATUS_FORMAT, toStateString);
             sender.sendMessage(message);
             return true;
         }
 
+        // Change the scenario status
+        scenario.setEnabled(toState);
+
         boolean silent = optionSet.has(silentSpec);
-        scenario.setEnabled(newStatus);
-        String message = String.format(STATUS_CHANGED_FORMAT, newStatusString);
+        String message = String.format(STATUS_CHANGED_FORMAT, toStateString);
         if (silent) {
             sender.sendMessage(message);
         } else {

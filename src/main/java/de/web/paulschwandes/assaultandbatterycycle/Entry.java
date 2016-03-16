@@ -54,12 +54,24 @@ public class Entry extends JavaPlugin {
         ImmutableSet<Listener> listeners = ImmutableSet.of(noIPvPListener, filterDamageListener);
         AssaultAndBatteryCycleScenario scenario = new AssaultAndBatteryCycleScenario(this, cycleManager, listeners);
 
-        ChangeDelayCommand changeDelayCommand = new ChangeDelayCommand(server, cycleManager);
-        ToggleScenarioCommand toggleScenarioCommand = new ToggleScenarioCommand(scenario, server);
-
         SubcommandCommand command = new SubcommandCommand();
-        command.registerSubcommand("set", toggleScenarioCommand);
+
+        // Enable commands
+        ToggleScenarioCommand enableScenarioCommand = new ToggleScenarioCommand(scenario, server, true);
+        command.registerSubcommand("enable", enableScenarioCommand);
+        command.registerSubcommand("on", enableScenarioCommand);
+        command.registerSubcommand("e", enableScenarioCommand);
+
+        // Disable commands
+        ToggleScenarioCommand disableScenarioCommand = new ToggleScenarioCommand(scenario, server, false);
+        command.registerSubcommand("disable", disableScenarioCommand);
+        command.registerSubcommand("off", disableScenarioCommand);
+        command.registerSubcommand("d", disableScenarioCommand);
+
+        ChangeDelayCommand changeDelayCommand = new ChangeDelayCommand(server, cycleManager);
         command.registerSubcommand("delay", changeDelayCommand);
+
+        // Register final command
         getCommand("aabc").setExecutor(command);
     }
 }

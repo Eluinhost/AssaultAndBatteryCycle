@@ -26,6 +26,7 @@ package de.web.paulschwandes.assaultandbatterycycle.commands;
 import de.web.paulschwandes.assaultandbatterycycle.AssaultAndBatteryCycleScenario;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,7 +37,7 @@ public class ToggleScenarioCommandTest {
 
     protected AssaultAndBatteryCycleScenario scenario;
     protected Server server;
-    protected ToggleScenarioCommand command;
+    protected CommandExecutor command;
     protected CommandSender sender;
     protected Command bukkitCommand;
 
@@ -44,42 +45,107 @@ public class ToggleScenarioCommandTest {
     public void setUp() throws Exception {
         scenario = mock(AssaultAndBatteryCycleScenario.class);
         server = mock(Server.class);
-        command = new ToggleScenarioCommand(scenario, server);
         sender = mock(CommandSender.class);
         bukkitCommand = mock(Command.class);
     }
 
+    protected void initCommand(boolean toEnable) {
+        command = new ToggleScenarioCommand(scenario, server, toEnable);
+    }
+
+    protected void triggerCommand(String... args) {
+        command.onCommand(sender, bukkitCommand, "", args);
+    }
+
     @Test
     public void testEnableScenario() throws Exception {
+        initCommand(true);
         when(scenario.isEnabled()).thenReturn(false);
-        command.onCommand(sender, bukkitCommand, "", new String[]{"-e"});
-        verify(scenario).setEnabled(true);
-        verify(server).broadcastMessage(contains("enabled"));
+
+        triggerCommand();
+
+        verify(scenario, times(1)).setEnabled(true);
+        verify(server, times(1)).broadcastMessage(contains("enabled"));
+        verify(sender, never()).sendMessage(anyString());
     }
 
     @Test
     public void testDisableScenario() throws Exception {
+        initCommand(false);
         when(scenario.isEnabled()).thenReturn(true);
-        command.onCommand(sender, bukkitCommand, "", new String[]{"-d"});
-        verify(scenario).setEnabled(false);
-        verify(server).broadcastMessage(contains("disabled"));
+
+        triggerCommand();
+
+        verify(scenario, times(1)).setEnabled(false);
+        verify(server, times(1)).broadcastMessage(contains("disabled"));
+        verify(sender, never()).sendMessage(anyString());
     }
 
     @Test
     public void testEnableSilently() throws Exception {
+        initCommand(true);
         when(scenario.isEnabled()).thenReturn(false);
-        command.onCommand(sender, bukkitCommand, "", new String[]{"-es"});
-        verify(scenario).setEnabled(true);
-        verify(sender).sendMessage(contains("enabled"));
+
+        triggerCommand("-s");
+
+        verify(scenario, times(1)).setEnabled(true);
+        verify(sender, times(1)).sendMessage(contains("enabled"));
         verify(server, never()).broadcastMessage(anyString());
     }
 
     @Test
     public void testDisableSilently() throws Exception {
+        initCommand(false);
         when(scenario.isEnabled()).thenReturn(true);
-        command.onCommand(sender, bukkitCommand, "", new String[]{"-ds"});
-        verify(scenario).setEnabled(false);
-        verify(sender).sendMessage(contains("disabled"));
+
+        triggerCommand("-s");
+
+        verify(scenario, times(1)).setEnabled(false);
+        verify(sender, times(1)).sendMessage(contains("disabled"));
         verify(server, never()).broadcastMessage(anyString());
+    }
+
+    @Test
+    public void testAlreadyEnabled() throws Exception {
+        initCommand(true);
+        when(scenario.isEnabled()).thenReturn(true);
+
+        triggerCommand();
+
+        verify(scenario, never()).setEnabled(anyBoolean());
+        verify(sender, times(1)).sendMessage(contains("is already enabled"));
+    }
+
+    @Test
+    public void testAlreadyDisabled() throws Exception {
+        initCommand(false);
+        when(scenario.isEnabled()).thenReturn(false);
+
+        triggerCommand();
+
+        verify(scenario, never()).setEnabled(anyBoolean());
+        verify(sender, times(1)).sendMessage(contains("is already disabled"));
+    }
+
+    @Test
+    public void testAlreadyEnabledSilent() throws Exception {
+        initCommand(true);
+        when(scenario.isEnabled()).thenReturn(true);
+
+        triggerCommand("-s");
+
+        verify(scenario, never()).setEnabled(anyBoolean());
+        verify(sender, times(1)).sendMessage(contains("is already enabled"));
+    }
+
+    @Test
+    public void testAlreadyDisabledSilent() throws Exception {
+        initCommand(false);
+        when(scenario.isEnabled()).thenReturn(false);
+
+        triggerCommand("-s");
+
+        verify(scenario, never()).setEnabled(anyBoolean());
+        verify(sender, times(1)).sendMessage(contains("is already disabled"));
     }
 }

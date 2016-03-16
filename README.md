@@ -16,9 +16,9 @@ Indirect PvP is disabled within range of other players during the Melee/Ranged c
 **This plugin uses ghowden/Eluinhost's flagcommands.**
 Click [here](https://github.com/Eluinhost/UHC/blob/master/docs/commands/Commands.md) for more information.
 
-`/aabc set -e` - Enable the scenario (`-es` to enable silently)   
-`/aabc set -d` - Disable the scenario (`-ds` to disable silently)   
-`/aabc delay -d [Time]` - Change the cycle switch delay, supports timespans such as 12m30s, 45s, etc. (`-sd` to change silently)
+`/aabc enable|on|e [-s]` - Enable the scenario (`-s` to enable silently)   
+`/aabc disable|off|d [-s]` - Disable the scenario (`-s` to disable silently)   
+`/aabc delay -d [Time]` - Change the cycle switch delay, supports timespans such as 12m30s, 45s, etc. (`-sd or -s -d` to change silently)
 
 ---
 
